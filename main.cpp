@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 #include <typeinfo>
+#include <fstream>
 
 int main(){
 
@@ -13,6 +14,7 @@ int main(){
 	vector<Administrador*> Administradores;
 	vector<Cliente*> Clientes;
 	vector<Vehiculo*> Vehiculos;
+	ofstream archivo;
 	int opc, opc2=0,m;
 	string User, Password, name, pass, cargo, ihss, marca, modelo, year;
 	double precio;
@@ -22,7 +24,7 @@ int main(){
 
 
 	cout << "-------RENTA DE AUTOMOVILES------" << endl;
-	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Cliente\n4.Registrar Administrador: ";
+	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Cliente\n4.Registrar Administrador:\n5.Generar e Imprimir Reporte de Autos ";
 	cin >> opc;
 
 	if (opc==1){
@@ -52,16 +54,7 @@ int main(){
 								cin >> precio;
 								Vehiculo* V = new Vehiculo("AA029", marca, modelo, year, precio, false);
 								Vehiculos.push_back(V);
-								/*cout << "Ingrese nombre: ";
-								cin >> name;
-								cout << "Ingrese Contraseña: ";
-								cin >> pass;
-								cout << "Ingrese Cargo: ";
-								cin >> cargo;
-								cout << "Ingrese IHSS: ";
-								cin >> ihss;
-								Administrador* adm = new Administrador(cargo, ihss, name, pass);
-								Administradores.push_back(adm);*/
+								
 
 							break;	
 							}//FIN AGREGAR VEHICULO
@@ -159,7 +152,8 @@ int main(){
 
 				//FIN IF ALQUILAR AUTO	
 				} else if (opc==2){
-					//TODO: ARCHIVO
+					archivo.open(name.c_str());
+					archivo << "-----FACTURACIÓN----" << endl;
 				}else{
 					cout << "OPCION INVALIDA";
 				}
@@ -167,7 +161,48 @@ int main(){
 			}//FINF INGRESO O LOGIN
 		}//FIN FOR
 
-	}//FIN CLIENTES
+	//FIN CLIENTES
+	//INICIO REGISTRO DE ADMINISTRADORES
+	}else if(opc==3){
+		cout << "Ingrese nombre: ";
+		cin >> name;
+		cout << "Ingrese Contraseña: ";
+		cin >> pass;
+		cout << "Ingrese Cargo: ";
+		cin >> cargo;
+		cout << "Ingrese IHSS: ";
+		cin >> ihss;
+		Administrador* adm = new Administrador(cargo, ihss, name, pass);
+		Administradores.push_back(adm);
+	//FIN REGISTRO DE ADMINISTRADORES
+	//INICIO REGISTRO DE CLIENTES
+	}else if (opc==4){
+		string member;
+		cout << "Ingrese nombre: ";
+		cin >> name;
+		cout << "Ingrese Contraseña: ";
+		cin >> pass;
+		cout << "Que tipo de membresia tiene?\n1.Normal\n2.Platinum\n3.Gold";
+		cin >> m;
+
+		if (m==1){
+			member = "Normal";
+		}else if (m==2){
+			member = "Platinum";
+		}else{
+			member = "Gold";
+		}
+		Cliente* Cost = new Cliente(member,name,pass);
+		Clientes.push_back(Cost);
+	//FIN REGISTRO DE CLIENTES
+	//REPORTE
+	}else if (opc==5){
+		for (int i = 0; i < Vehiculos.size(); ++i)
+		{
+			cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << Vehiculos[i]->getEstado() << endl;
+		}
+
+	}
 
 
 
