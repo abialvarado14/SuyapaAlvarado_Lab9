@@ -17,6 +17,7 @@ public:
 	void setNombre(string Nombre);
 	string getPassword();
 	void setPassword(string Password);
+	virtual ~Usuario();
 
 
 };

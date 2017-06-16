@@ -26,3 +26,7 @@ return Seguro;
 void Administrador::setSeguro(string Seguro){
 	this->Seguro =Seguro;
 }
+
+Administrador::~Administrador(){
+	
+}

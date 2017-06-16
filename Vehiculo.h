@@ -13,10 +13,11 @@ protected:
 	string Modelo;
 	string Year;
 	double Precio;
+	bool Estado;
 
 public:
 
-	Vehiculo(string, string, string, string, double);
+	Vehiculo(string, string, string, string, double, bool);
 	string getPlaca();
 	void setPlaca(string Placa);
 	string getMarca();
@@ -27,6 +28,9 @@ public:
 	void setYear(string Year);
 	double getPrecio();
 	void setPrecio(double Precio);
+	bool getEstado();
+	void setEstado(bool Estado);
+
 
 
 };

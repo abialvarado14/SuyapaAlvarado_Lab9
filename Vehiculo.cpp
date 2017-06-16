@@ -1,11 +1,12 @@
 #include "Vehiculo.h"
 
-Vehiculo::Vehiculo( string Placa,  string Marca,  string Modelo,  string Year,  double Precio) {
+Vehiculo::Vehiculo( string Placa,  string Marca,  string Modelo,  string Year,  double Precio, bool Estado) {
 	this-> Placa=Placa;
 	this-> Marca=Marca;
 	this-> Modelo=Modelo;
 	this-> Year=Year;
 	this-> Precio=Precio;
+	this-> Estado=Estado;
 }
 
 
@@ -52,4 +53,13 @@ return Precio;
 
 void Vehiculo::setPrecio(double Precio){
 	this->Precio =Precio;
+}
+
+bool Vehiculo::getEstado(){
+
+return Estado;
+}
+
+void Vehiculo::setEstado(bool Estado){
+	this->Estado =Estado;
 }

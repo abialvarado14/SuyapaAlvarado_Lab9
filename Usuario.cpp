@@ -23,3 +23,9 @@ return Password;
 void Usuario::setPassword(string Password){
 	this->Password =Password;
 }
+
+Usuario::~Usuario(){
+	
+}
+
+

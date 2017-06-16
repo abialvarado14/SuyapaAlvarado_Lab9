@@ -17,5 +17,5 @@ public:
 	void setcargo(string cargo);
 	string getSeguro();
 	void setSeguro(string Seguro);
-
+	~Administrador();
 };

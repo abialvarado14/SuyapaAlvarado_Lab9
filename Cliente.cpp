@@ -15,3 +15,7 @@ void Cliente::setMembresia(string Membresia) {
 	this->Membresia =Membresia;
 	
 }
+
+Cliente::~Cliente(){
+	
+}

@@ -15,7 +15,7 @@ public:
 	Cliente(string, string, string);
 	string getMembresia();
 	void setMembresia(string Membresia);
-
+	~Cliente();
 
 };
 
