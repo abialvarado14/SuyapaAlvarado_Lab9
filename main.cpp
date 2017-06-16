@@ -16,12 +16,16 @@ int main(){
 	vector<Vehiculo*> Vehiculos;
 	ofstream archivo;
 	int opc, opc2=0,m;
+	char resp = 's';
 	string User, Password, name, pass, cargo, ihss, marca, modelo, year;
 	double precio;
 
 	Administrador* admi = new Administrador("Gerente","12343","abi","1221");
 	Administradores.push_back(admi);
+	Cliente* Client = new Cliente("Gold", "Abi", "1221");
+	Clientes.push_back(Client);
 
+	while (resp == 's' || resp == 'S'){
 
 	cout << "-------RENTA DE AUTOMOVILES------" << endl;
 	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Cliente\n4.Registrar Administrador:\n5.Generar e Imprimir Reporte de Autos ";
@@ -153,7 +157,11 @@ int main(){
 				//FIN IF ALQUILAR AUTO	
 				} else if (opc==2){
 					archivo.open(name.c_str());
-					archivo << "-----FACTURACIÓN----" << endl;
+					archivo << "HOLA";
+					/*archivo << "-----FACTURACIÓN----" << endl;
+					archivo << Vehiculos[pos2]->getMarca() << " " << Vehiculos[pos2]->getModelo() << " " << Vehiculos[pos2]->getYear() << endl;
+					archivo << "Total a Pagar:        " << Vehiculos[pos2]->getPrecio();*/
+					archivo.close();
 				}else{
 					cout << "OPCION INVALIDA";
 				}
@@ -174,6 +182,8 @@ int main(){
 		cin >> ihss;
 		Administrador* adm = new Administrador(cargo, ihss, name, pass);
 		Administradores.push_back(adm);
+		
+
 	//FIN REGISTRO DE ADMINISTRADORES
 	//INICIO REGISTRO DE CLIENTES
 	}else if (opc==4){
@@ -197,12 +207,30 @@ int main(){
 	//FIN REGISTRO DE CLIENTES
 	//REPORTE
 	}else if (opc==5){
+		string status;
+		archivo.open("Reporte.txt");
+		archivo << "---REPORTE VEHICULOS---";
+
 		for (int i = 0; i < Vehiculos.size(); ++i)
 		{
-			cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << Vehiculos[i]->getEstado() << endl;
+			if (Vehiculos[i]->getEstado()==false){
+				status = "NoAlquilado";
+			}else{
+				status = "Alquilado";
+			}
+			archivo << endl << endl << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
+			cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
 		}
+		archivo.close();
 
+
+	}else{
+		cout << "\nOPCION INVALIDA";
 	}
+	cout << "Desea seguir en el programa? ";
+	cin >> resp;
+
+}//FIN WHILE
 
 
 
