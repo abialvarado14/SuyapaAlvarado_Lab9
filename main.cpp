@@ -11,6 +11,7 @@ int main(){
 
 	vector<Usuario*> Usuarios;
 	vector<Administrador*> Administradores;
+	vector<Cliente*> Clientes;
 	vector<Vehiculo*> Vehiculos;
 	int opc, opc2=0,m;
 	string User, Password, name, pass, cargo, ihss, marca, modelo, year;
@@ -21,7 +22,7 @@ int main(){
 
 
 	cout << "-------RENTA DE AUTOMOVILES------" << endl;
-	cout << "Como que tipo de usuario desea entrar?: \n1.Administrador \n2.Cliente: ";
+	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Cliente\n4.Registrar Administrador: ";
 	cin >> opc;
 
 	if (opc==1){
@@ -36,7 +37,7 @@ int main(){
 						cout << "----LOGIN ADMI----\n" << endl;
 						i = Administradores.size();
 						while (opc2!=4){
-						cout << "Ingrese una opción: \n1.Ingresar Autos\n2.Modificar Autos\n3.Eliminar Autos";
+						cout << "\nIngrese una opción: \n1.Ingresar Autos\n2.Modificar Autos\n3.Eliminar Autos\n4.Salir";
 						cin >> opc2;
 
 						switch(opc2){
@@ -67,7 +68,7 @@ int main(){
 
 							case 2:{
 								int pos;
-								cout << "----MODIFICAR VEHICULO----";
+								cout << "----MODIFICAR VEHICULO----\n";
 
 									for (int i = 0; i < Vehiculos.size(); ++i)
 									{
@@ -100,7 +101,7 @@ int main(){
 
 							case 3:{
 								int pos;
-								cout << "-----ELIMINAR VEHICULO----";
+								cout << "\n-----ELIMINAR VEHICULO----\n";
 
 								for (int i = 0; i < Vehiculos.size(); ++i)
 									{
@@ -119,11 +120,54 @@ int main(){
 
 						}//FIN SWITCH MENU DE ADMINISTRADORES
 					}//WHILE
+				}else{
+					if (i == Administradores.size())
+						cout << "\nUSUARIO O CONTRASEÑA INCORRECTOS";
 				}
 			}//FIN FOR
+	//FIN ADMINISTRADOR
+	//INICIO LOGIN CLIENTE
+	} else if (opc==2){
+		cout << "Ingrese usuario: ";
+		cin >> User;
+		cout << "Ingrese contraseña: ";
+		cin >> Password;
 
+		for (int i = 0; i < Clientes.size(); ++i)
+		{
+			if(User == (Clientes[i])->getNombre() && Password == (Clientes[i])->getPassword()){
+				while(opc!=3){
+				int opc3, pos2;
+				cout << "LOGIN CLIENTE\n";
+				i = Clientes.size();
+				cout << "Ingrese una opción:\n1.Alquilar Automovil\n2.Guardar Factura: ";
+				cin >> opc3;
+				if (opc3==1){
+					for (int i = 0; i < Vehiculos.size(); ++i)
+					{
+						cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << Vehiculos[i]->getEstado() << endl;
+					}
+					cout << "Ingrese la posición del auto que desea alquilar: ";
+					cin >> pos2;
+					if (pos2<0||pos2>Vehiculos.size()){
+						cout << "\nPOSICION INEXISTENTE";
+					}else{
+						cout << "Usted Alquilo el auto: " << endl;
+						cout << Vehiculos[pos2]->getMarca() << " " << Vehiculos[pos2]->getModelo() << " " << Vehiculos[pos2]->getPrecio();
+						Vehiculos[pos2]->setEstado(true);
+					}
 
-	}//FIN ADMINISTRADOR
+				//FIN IF ALQUILAR AUTO	
+				} else if (opc==2){
+					//TODO: ARCHIVO
+				}else{
+					cout << "OPCION INVALIDA";
+				}
+			}//FIN WHILE
+			}//FINF INGRESO O LOGIN
+		}//FIN FOR
+
+	}//FIN CLIENTES
 
 
 
