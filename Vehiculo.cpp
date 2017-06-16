@@ -63,3 +63,22 @@ return Estado;
 void Vehiculo::setEstado(bool Estado){
 	this->Estado =Estado;
 }
+
+void Vehiculo::write(ofstream& out){
+	out.write(reinterpret_cast<char*>(&Placa), sizeof(Placa));
+	out.write(reinterpret_cast<char*>(&Marca), sizeof(Marca));
+	out.write(reinterpret_cast<char*>(&Modelo), sizeof(Modelo));
+	out.write(reinterpret_cast<char*>(&Year), sizeof(Year));
+	out.write(reinterpret_cast<char*>(&Estado), sizeof(Estado));
+}
+
+void Vehiculo::read(ifstream& in){
+	in.read(reinterpret_cast<char*>(&Placa), sizeof(Placa));
+	in.read(reinterpret_cast<char*>(&Marca), sizeof(Marca));
+	in.read(reinterpret_cast<char*>(&Modelo), sizeof(Modelo));
+	in.read(reinterpret_cast<char*>(&Year), sizeof(Year));
+	in.read(reinterpret_cast<char*>(&Estado), sizeof(Estado));
+}
+
+
+

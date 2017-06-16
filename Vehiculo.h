@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <fstream>
 
 #include <string>
 
@@ -30,6 +32,9 @@ public:
 	void setPrecio(double Precio);
 	bool getEstado();
 	void setEstado(bool Estado);
+	void write(ofstream&);
+	void read(ifstream&);
+
 
 
 

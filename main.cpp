@@ -19,7 +19,8 @@ int main(){
 	vector<Cliente*> Clientes;
 	vector<Vehiculo*> Vehiculos;
 	ofstream archivo;
-	int opc, opc2=0,m;
+	ifstream myfile;
+	int opc, opc2=0,m, cont=0;
 	char resp = 's';
 	string User, Password, name, pass, cargo, ihss, marca, modelo, year;
 	double precio;
@@ -28,6 +29,24 @@ int main(){
 	Administradores.push_back(admi);
 	Cliente* Client = new Cliente("Gold", "Abi", "1221");
 	Clientes.push_back(Client);
+	
+
+	//****CARGAR ARCHIVO*************
+	/*myfile.open("Reporte.dat", ios::binary);
+
+		while(!myfile.eof()&&!myfile.fail()){
+			cout << "HOLAAAAAAAAAAAAAAA";
+			Vehiculo* veh = new Vehiculo("op","op","op","op", 0.00,0);
+			veh->read(myfile);
+			Vehiculos.push_back(veh);
+			cout << "la placa es:"<< veh->getPlaca();
+			}
+		
+			
+		
+	myfile.close();
+	cout << Vehiculos.size();*/
+
 
 	while (resp == 's' || resp == 'S'){
 
@@ -177,6 +196,7 @@ int main(){
 				}else{
 					cout << "OPCION INVALIDA";
 				}
+
 			}//FIN WHILE
 			}//FINF INGRESO O LOGIN
 		}//FIN FOR
@@ -234,6 +254,17 @@ int main(){
 			cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
 		}
 		archivo.close();
+
+		archivo.open("Reporte.dat", ios::binary);
+		for (int i = 0; i < Vehiculos.size(); ++i)
+		{
+			if (Vehiculos[i]!=NULL){
+				Vehiculos[i]->write(archivo);
+			}
+		}
+
+		archivo.close();
+
 
 
 	}else{
