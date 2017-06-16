@@ -7,6 +7,10 @@
 #include <iostream>
 #include <typeinfo>
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
+
+string Placa();
 
 int main(){
 
@@ -28,7 +32,7 @@ int main(){
 	while (resp == 's' || resp == 'S'){
 
 	cout << "-------RENTA DE AUTOMOVILES------" << endl;
-	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Cliente\n4.Registrar Administrador:\n5.Generar e Imprimir Reporte de Autos ";
+	cout << "\n----Menu----\n1.Entrar como Administrador \n2.Entrar como Cliente:\n3.Registrar Administrador\n4.Registrar Cliente\n5.Generar e Imprimir Reporte de Autos ";
 	cin >> opc;
 
 	if (opc==1){
@@ -41,9 +45,10 @@ int main(){
 			{
 				if(User == (Administradores[i])->getNombre() && Password == (Administradores[i])->getPassword()){
 						cout << "----LOGIN ADMI----\n" << endl;
+						string placa;
 						i = Administradores.size();
 						while (opc2!=4){
-						cout << "\nIngrese una opción: \n1.Ingresar Autos\n2.Modificar Autos\n3.Eliminar Autos\n4.Salir";
+						cout << "\nIngrese una opción: \n1.Ingresar Autos\n2.Modificar Autos\n3.Eliminar Autos\n4.Salir ";
 						cin >> opc2;
 
 						switch(opc2){
@@ -56,7 +61,8 @@ int main(){
 								cin >> year;
 								cout << "Ingrese precio:";
 								cin >> precio;
-								Vehiculo* V = new Vehiculo("AA029", marca, modelo, year, precio, false);
+								placa = Placa();
+								Vehiculo* V = new Vehiculo(placa, marca, modelo, year, precio, false);
 								Vehiculos.push_back(V);
 								
 
@@ -155,12 +161,18 @@ int main(){
 					}
 
 				//FIN IF ALQUILAR AUTO	
-				} else if (opc==2){
-					archivo.open(name.c_str());
-					archivo << "HOLA";
-					/*archivo << "-----FACTURACIÓN----" << endl;
-					archivo << Vehiculos[pos2]->getMarca() << " " << Vehiculos[pos2]->getModelo() << " " << Vehiculos[pos2]->getYear() << endl;
-					archivo << "Total a Pagar:        " << Vehiculos[pos2]->getPrecio();*/
+				} else if (opc3==2){
+					string status;
+					archivo.open(User.c_str());
+
+				if (Vehiculos[i]->getEstado()==false){
+						status = "NoAlquilado";
+				}else{
+					status = "Alquilado";
+				}
+					archivo << "-----FACTURACIÓN----" << endl;
+					archivo << Vehiculos[pos2]->getMarca() << " " << Vehiculos[pos2]->getModelo() << " " << Vehiculos[pos2]->getYear() << " " << status << endl;
+					archivo << "Total a Pagar:        L.   " << Vehiculos[pos2]->getPrecio();
 					archivo.close();
 				}else{
 					cout << "OPCION INVALIDA";
@@ -192,7 +204,7 @@ int main(){
 		cin >> name;
 		cout << "Ingrese Contraseña: ";
 		cin >> pass;
-		cout << "Que tipo de membresia tiene?\n1.Normal\n2.Platinum\n3.Gold";
+		cout << "Que tipo de membresia tiene?\n1.Normal\n2.Platinum\n3.Gold ";
 		cin >> m;
 
 		if (m==1){
@@ -209,7 +221,7 @@ int main(){
 	}else if (opc==5){
 		string status;
 		archivo.open("Reporte.txt");
-		archivo << "---REPORTE VEHICULOS---";
+		archivo << "---REPORTE VEHICULOS---" << endl << endl;
 
 		for (int i = 0; i < Vehiculos.size(); ++i)
 		{
@@ -218,7 +230,7 @@ int main(){
 			}else{
 				status = "Alquilado";
 			}
-			archivo << endl << endl << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
+			archivo << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
 			cout << i << " " << Vehiculos[i]->getPlaca() << " " << Vehiculos[i]->getMarca() << " " << Vehiculos[i]->getYear() << " " << Vehiculos[i]->getPrecio() << " " << status << endl;
 		}
 		archivo.close();
@@ -235,4 +247,25 @@ int main(){
 
 
 	return 0;
+}
+
+string Placa(){
+	int num;
+	string numero = "";
+	string letras[27] = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+	string number[10] = {"1","2","3","4","5","6","7","8","9","0"};
+
+	for (int i = 0; i < 3; ++i)
+	{
+		num = rand()%27;
+		numero = numero + letras[num];
+	}
+
+	for(int i=0; i<3; i++){
+		num = rand()%10;
+		numero = numero + number[num];
+	}
+
+return numero;
+
 }
